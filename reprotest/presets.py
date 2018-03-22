@@ -75,7 +75,8 @@ PRESET_DEB_DIR = ReprotestPreset(
 def preset_deb_schroot(fn, preset):
     return preset.set.testbed_init(
         # need to symlink /etc/mtab to work around a fusermount(1) deficiency
-        'apt-get -y --no-install-recommends install disorderfs fakeroot faketime locales-all sudo util-linux; \
+        'apt-get update && \
+        apt-get -y --no-install-recommends install disorderfs fakeroot faketime locales-all sudo util-linux; \
         test -c /dev/fuse || mknod -m 666 /dev/fuse c 10 229; \
         test -f /etc/mtab || ln -s ../proc/self/mounts /etc/mtab'
     ).set.testbed_build_pre(
